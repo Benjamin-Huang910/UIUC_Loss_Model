@@ -1,0 +1,103 @@
+---
+title: "Project"
+author: "Benjamin Huang"
+date: "2024-03-31"
+output: pdf_document
+---
+
+#Part 1 Convolutions
+##In this part, you will see the effect of adding two distributions together. Simulate 𝑋1, 𝑋2, and then 
+##compute their sum 𝑌 = 𝑋1 + 𝑋2. Classify Y as an (a, b, 0) distribution and give its parameters. 
+```{r Geometric dist}
+set.seed(461)
+x1 <- rgeom(10000, 1/(1+12))
+x2 <- rgeom(10000, 1/(1+12))
+y <- x1 + x2
+(table <- table(y))
+
+par(mfrow = c(1,3))
+hist(x1)
+hist(x2)
+hist(y)
+
+p <- numeric(60)
+for (i in 1:60) {
+  p[i] <- (i+1)*table[i+1]/table[i]
+}
+p
+x <- 2:61
+lm(p[1:60]~x)
+
+par(mfrow = c(1, 2))
+hist(y, breaks = 15)
+hist(rnbinom(10000, 2, 1/(1+12)), breaks = 15)
+```
+
+```{r Binomial dist}
+set.seed(461)
+x1 <- rbinom(10000, 24, 0.6)
+x2 <- rbinom(10000, 36, 0.6)
+y <- x1 + x2
+(table <- table(y))
+
+par(mfrow = c(1,3))
+hist(x1)
+hist(x2)
+hist(y)
+
+p <- numeric(24)
+for (i in 1:24) {
+  p[i] <- (i+22)*table[i+1]/table[i]
+}
+p
+x <- 26:46
+lm(p[4:24]~x)
+
+par(mfrow = c(1, 2))
+hist(y, breaks = 15)
+hist(rbinom(10000, 62, 0.583), breaks = 15)
+```
+
+```{r Poisson dist}
+set.seed(461)
+x1 <- rpois(10000, 16)
+x2 <- rpois(10000, 20)
+y <- x1 + x2
+(table <- table(y))
+
+par(mfrow = c(1,3))
+hist(x1)
+hist(x2)
+hist(y)
+
+p <- numeric(40)
+for (i in 1:40) {
+  p[i] <- (i+17)*table[i+2]/table[i+1]
+}
+p
+x <- 21:52
+lm(p[4:35]~x)
+
+par(mfrow = c(1, 2))
+hist(y, breaks = 15)
+hist(rpois(10000, 35), breaks = 10)
+```
+
+#Part 2 Compound Distributions
+##In this part, you will create a collective risk model with N being the number of claims and 𝑋𝑖 being the amount of loss. Simulate 𝑁, 𝑋𝑖, and the sum 𝑆 = 𝑋1 + 𝑋2 + ⋯ + 𝑋𝑁. Compute 𝐸[𝑆], 𝑉𝑎𝑟[𝑆], and compare to the theoretical values using the law of total expectation. 
+```{r Poisson & Exponential}
+set.seed(461)
+n <- rpois(10000, 25)
+x_i <- rexp(10000, 1/100)
+
+mean_n <- mean(n)
+var_n <- var(n)
+mean_x_i <- mean(x_i)
+var_x_i <- var(x_i)
+
+mean_s <- mean_n * mean_x_i
+var_s <- mean_n * var_x_i + var_n * mean_x_i^2
+cat("mean of aggregate loss:", mean_s, "\n")
+cat("variance of aggregate loss:", var_s)
+```
+

@@ -100,4 +100,123 @@ var_s <- mean_n * var_x_i + var_n * mean_x_i^2
 cat("mean of aggregate loss:", mean_s, "\n")
 cat("variance of aggregate loss:", var_s)
 ```
+$$
+\begin{align*}
 
+& N \sim Poi(\lambda = 25), \: X \sim Exp(\theta = 100)
+\\
+& E(N) = \lambda = 25, \: Var(N) = \lambda = 25
+\\
+& E(X) = \theta^{1} \times 1! = 100, \: E(X^{2}) = \theta^{2} \times 2! = 20000, \: Var(X) = 10000
+\\
+& \therefore E(S) = E(N) \times E(X) = 2500, \: Var(S) = E(N) \times Var(X) + Var(N) \times E(X)^{2} = 500000
+
+\end{align*}
+$$
+```{r Poisson & Lognormal}
+set.seed(461)
+n <- rpois(10000, 100)
+x_i <- rlnorm(10000, meanlog = 1, sdlog = 2)
+
+mean_n <- mean(n)
+var_n <- var(n)
+mean_x_i <- mean(x_i)
+var_x_i <- var(x_i)
+
+mean_s <- mean_n * mean_x_i
+var_s <- mean_n * var_x_i + var_n * mean_x_i^2
+cat("mean of aggregate loss:", mean_s, "\n")
+cat("variance of aggregate loss:", var_s)
+```
+$$
+\begin{align*}
+
+& N \sim Poi(\lambda = 100), \: X \sim Lognormal(\mu = 1, \sigma = 2)
+\\
+& E(N) = \lambda = 100, \: Var(N) = \lambda = 100
+\\
+& E(X) = exp(\mu + \frac{1}{2}\sigma^{2}) \approx 20.09, \: E(X^{2}) = exp(2\mu + 2\sigma^{2}) \approx 22026.47, \: Var(X) \approx 21622.86
+\\
+& \therefore E(S) = E(N) \times E(X) = 2009, \: Var(S) = E(N) \times Var(X) + Var(N) \times E(X)^{2} = 2202646.81
+
+\end{align*}
+$$
+
+```{r Binomial & Gamma}
+set.seed(461)
+n <- rbinom(10000, 36, 0.6)
+x_i <- rgamma(10000, shape = 100, rate = 1/2)
+
+mean_n <- mean(n)
+var_n <- var(n)
+mean_x_i <- mean(x_i)
+var_x_i <- var(x_i)
+
+mean_s <- mean_n * mean_x_i
+var_s <- mean_n * var_x_i + var_n * mean_x_i^2
+cat("mean of aggregate loss:", mean_s, "\n")
+cat("variance of aggregate loss:", var_s)
+```
+$$
+\begin{align*}
+
+& N \sim Bin(m = 36, q = 0.6), \: X \sim Gamma(\alpha = 100, \theta = 2)
+\\
+& E(N) = mq = 21.6, \: Var(N) = mq(1-q) = 8.64
+\\
+& E(X) = \theta^{1}(\alpha + 1 - 1) = 200, \: E(X^{2}) = \theta^{2}(\alpha + 2 - 1)(\alpha + 1 -1) = 40400, \: Var(X) = 400
+\\
+& \therefore E(S) = E(N) \times E(X) = 4320, \: Var(S) = E(N) \times Var(X) + Var(N) \times E(X)^{2} = 354240
+
+\end{align*}
+$$
+
+#Part 3 Credibility Theory
+#For each of the three models in Part 2, determine the credibility standards with
+$$
+\begin{align*}
+
+& For \: r = 0.99, p = 0.9, \: E(S) = 2500, \: Var(S) = 500000
+\\
+& \mathbb{P}\{ -r\xi \leq \bar{X} - \xi \leq r\xi \} \geq p, \: \mathbb{P}(|\frac{\bar{X}-\xi}{\sigma/\sqrt{n}}| \leq \frac{r\xi\sqrt{n}}{\sigma}) \geq p
+\\
+& \Rightarrow \mathbb{P}(|\frac{\bar{X}-E(X)}{Var(\bar{X})}| \leq \frac{rE(X)}{Var(\bar{X})}=y_{p}) \geq p
+\\
+& Let \: X = S(Aggregate \: Loss)
+\\
+& \Rightarrow \frac{rE(X)}{Var(\bar{X})} = \frac{0.99 \times 2500}{500000/10000} = 49.5 \geq y_{0.95} = 1.645
+
+\end{align*}
+$$
+
+$$
+\begin{align*}
+
+& For \: r = 0.95, p = 0.95, \: E(S) = 2009, \: Var(S) = 2202646.81
+\\
+& \mathbb{P}\{ -r\xi \leq \bar{X} - \xi \leq r\xi \} \geq p, \: \mathbb{P}(|\frac{\bar{X}-\xi}{\sigma/\sqrt{n}}| \leq \frac{r\xi\sqrt{n}}{\sigma}) \geq p
+\\
+& \Rightarrow \mathbb{P}(|\frac{\bar{X}-E(X)}{Var(\bar{X})}| \leq \frac{rE(X)}{Var(\bar{X})}=y_{p}) \geq p
+\\
+& Let \: X = S(Aggregate \: Loss)
+\\
+& \Rightarrow \frac{rE(X)}{Var(\bar{X})} = \frac{0.95 \times 2009}{2202646.81/10000} \approx 8.66 \geq y_{0.975} = 1.96
+
+\end{align*}
+$$
+
+$$
+\begin{align*}
+
+& For \: r = 0.90, p = 0.99, \: E(S) = 4320, \: Var(S) = 354240
+\\
+& \mathbb{P}\{ -r\xi \leq \bar{X} - \xi \leq r\xi \} \geq p, \: \mathbb{P}(|\frac{\bar{X}-\xi}{\sigma/\sqrt{n}}| \leq \frac{r\xi\sqrt{n}}{\sigma}) \geq p
+\\
+& \Rightarrow \mathbb{P}(|\frac{\bar{X}-E(X)}{Var(\bar{X})}| \leq \frac{rE(X)}{Var(\bar{X})}=y_{p}) \geq p
+\\
+& Let \: X = S(Aggregate \: Loss)
+\\
+& \Rightarrow \frac{rE(X)}{Var(\bar{X})} = \frac{0.9 \times 4320}{354240/10000} \approx 109.76 \geq y_{0.995} = 2.575
+
+\end{align*}
+$$

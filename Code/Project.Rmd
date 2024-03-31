@@ -90,6 +90,10 @@ set.seed(461)
 n <- rpois(10000, 25)
 x_i <- rexp(10000, 1/100)
 
+par(mfrow = c(1,2))
+hist(n)
+hist(x_i)
+
 mean_n <- mean(n)
 var_n <- var(n)
 mean_x_i <- mean(x_i)
@@ -117,6 +121,10 @@ $$
 set.seed(461)
 n <- rpois(10000, 100)
 x_i <- rlnorm(10000, meanlog = 1, sdlog = 2)
+
+par(mfrow = c(1,2))
+hist(n)
+hist(x_i)
 
 mean_n <- mean(n)
 var_n <- var(n)
@@ -146,6 +154,10 @@ $$
 set.seed(461)
 n <- rbinom(10000, 36, 0.6)
 x_i <- rgamma(10000, shape = 100, rate = 1/2)
+
+par(mfrow = c(1,2))
+hist(n)
+hist(x_i)
 
 mean_n <- mean(n)
 var_n <- var(n)
@@ -180,11 +192,11 @@ $$
 \\
 & \mathbb{P}\{ -r\xi \leq \bar{X} - \xi \leq r\xi \} \geq p, \: \mathbb{P}(|\frac{\bar{X}-\xi}{\sigma/\sqrt{n}}| \leq \frac{r\xi\sqrt{n}}{\sigma}) \geq p
 \\
-& \Rightarrow \mathbb{P}(|\frac{\bar{X}-E(X)}{Var(\bar{X})}| \leq \frac{rE(X)}{Var(\bar{X})}=y_{p}) \geq p
+& \Rightarrow \mathbb{P}(|\frac{\bar{X}-E(X)}{\sqrt{Var(\bar{X})}}| \leq \frac{rE(X)}{\sqrt{Var(\bar{X})}}=y_{p}) \geq p
 \\
 & Let \: X = S(Aggregate \: Loss)
 \\
-& \Rightarrow \frac{rE(X)}{Var(\bar{X})} = \frac{0.99 \times 2500}{500000/10000} = 49.5 \geq y_{0.95} = 1.645
+& \Rightarrow \frac{rE(X)}{\sqrt{Var(\bar{X})}} = \frac{0.99 \times 2500}{\sqrt{500000/10000}} \approx 350.02 \geq y_{0.95} = 1.645
 
 \end{align*}
 $$
@@ -196,11 +208,11 @@ $$
 \\
 & \mathbb{P}\{ -r\xi \leq \bar{X} - \xi \leq r\xi \} \geq p, \: \mathbb{P}(|\frac{\bar{X}-\xi}{\sigma/\sqrt{n}}| \leq \frac{r\xi\sqrt{n}}{\sigma}) \geq p
 \\
-& \Rightarrow \mathbb{P}(|\frac{\bar{X}-E(X)}{Var(\bar{X})}| \leq \frac{rE(X)}{Var(\bar{X})}=y_{p}) \geq p
+& \Rightarrow \mathbb{P}(|\frac{\bar{X}-E(X)}{\sqrt{Var(\bar{X})}}| \leq \frac{rE(X)}{\sqrt{Var(\bar{X})}}=y_{p}) \geq p
 \\
 & Let \: X = S(Aggregate \: Loss)
 \\
-& \Rightarrow \frac{rE(X)}{Var(\bar{X})} = \frac{0.95 \times 2009}{2202646.81/10000} \approx 8.66 \geq y_{0.975} = 1.96
+& \Rightarrow \frac{rE(X)}{\sqrt{Var(\bar{X})}} = \frac{0.95 \times 2009}{\sqrt{2202646.81/10000}} \approx 128.60 \geq y_{0.975} = 1.96
 
 \end{align*}
 $$
@@ -212,11 +224,11 @@ $$
 \\
 & \mathbb{P}\{ -r\xi \leq \bar{X} - \xi \leq r\xi \} \geq p, \: \mathbb{P}(|\frac{\bar{X}-\xi}{\sigma/\sqrt{n}}| \leq \frac{r\xi\sqrt{n}}{\sigma}) \geq p
 \\
-& \Rightarrow \mathbb{P}(|\frac{\bar{X}-E(X)}{Var(\bar{X})}| \leq \frac{rE(X)}{Var(\bar{X})}=y_{p}) \geq p
+& \Rightarrow \mathbb{P}(|\frac{\bar{X}-E(X)}{\sqrt{Var(\bar{X})}}| \leq \frac{rE(X)}{\sqrt{Var(\bar{X})}}=y_{p}) \geq p
 \\
 & Let \: X = S(Aggregate \: Loss)
 \\
-& \Rightarrow \frac{rE(X)}{Var(\bar{X})} = \frac{0.9 \times 4320}{354240/10000} \approx 109.76 \geq y_{0.995} = 2.575
+& \Rightarrow \frac{rE(X)}{\sqrt{Var(\bar{X})}} = \frac{0.9 \times 4320}{\sqrt{354240/10000}} \approx 653.25 \geq y_{0.995} = 2.575
 
 \end{align*}
 $$

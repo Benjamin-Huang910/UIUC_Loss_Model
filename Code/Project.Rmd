@@ -6,12 +6,15 @@ output: pdf_document
 ---
 
 #Part 1 Convolutions
-##In this part, you will see the effect of adding two distributions together. Simulate 𝑋1, 𝑋2, and then 
-##compute their sum 𝑌 = 𝑋1 + 𝑋2. Classify Y as an (a, b, 0) distribution and give its parameters. 
+##In this part, you will see the effect of adding two distributions together. Simulate 𝑋1, 𝑋2, and then compute their sum 𝑌 = 𝑋1 + 𝑋2. Classify Y as an (a, b, 0) distribution and give its parameters. 
 ```{r Geometric dist}
+sample_size <- 10000
+beta1 <- 12
+beta2 <- 12
+
 set.seed(461)
-x1 <- rgeom(10000, 1/(1+12))
-x2 <- rgeom(10000, 1/(1+12))
+x1 <- rgeom(sample_size, 1/(1+beta1))
+x2 <- rgeom(sample_size, 1/(1+beta2))
 y <- x1 + x2
 (table <- table(y))
 
@@ -30,13 +33,19 @@ lm(p[1:60]~x)
 
 par(mfrow = c(1, 2))
 hist(y, breaks = 15)
-hist(rnbinom(10000, 2, 1/(1+12)), breaks = 15)
+hist(rnbinom(sample_size, 2, 1/(1+12)), breaks = 15)
 ```
 
 ```{r Binomial dist}
+sample_size <- 10000
+trial1 <- 24
+trial2 <- 36
+success1 <- 0.6
+success2 <- 0.6
 set.seed(461)
-x1 <- rbinom(10000, 24, 0.6)
-x2 <- rbinom(10000, 36, 0.6)
+
+x1 <- rbinom(sample_size, trial1, success1)
+x2 <- rbinom(sample_size, trial2, success2)
 y <- x1 + x2
 (table <- table(y))
 
@@ -55,13 +64,17 @@ lm(p[4:24]~x)
 
 par(mfrow = c(1, 2))
 hist(y, breaks = 15)
-hist(rbinom(10000, 62, 0.583), breaks = 15)
+hist(rbinom(sample_size, 62, 0.583), breaks = 15)
 ```
 
 ```{r Poisson dist}
+sample_size <- 10000
+lambda1 <- 16
+lambda2 <- 20
 set.seed(461)
-x1 <- rpois(10000, 16)
-x2 <- rpois(10000, 20)
+
+x1 <- rpois(sample_size, lambda1)
+x2 <- rpois(sample_size, lambda2)
 y <- x1 + x2
 (table <- table(y))
 
@@ -80,29 +93,45 @@ lm(p[4:35]~x)
 
 par(mfrow = c(1, 2))
 hist(y, breaks = 15)
-hist(rpois(10000, 35), breaks = 10)
+hist(rpois(sample_size, 35), breaks = 10)
 ```
 
 #Part 2 Compound Distributions
 ##In this part, you will create a collective risk model with N being the number of claims and 𝑋𝑖 being the amount of loss. Simulate 𝑁, 𝑋𝑖, and the sum 𝑆 = 𝑋1 + 𝑋2 + ⋯ + 𝑋𝑁. Compute 𝐸[𝑆], 𝑉𝑎𝑟[𝑆], and compare to the theoretical values using the law of total expectation. 
 ```{r Poisson & Exponential}
+sample_size <- 10000
+lambda <- 25
+theta <- 100
 set.seed(461)
-n <- rpois(10000, 25)
-x_i <- rexp(10000, 1/100)
 
-par(mfrow = c(1,2))
+n <- rpois(sample_size, lambda)
+x <- rexp(sample_size, 1/theta)
+s <- numeric(sample_size)
+for (i in 1:sample_size) {
+  x_i <- rexp(n[i], 1/theta) 
+  start_index <- 1
+  end_index <- start_index + n[i] - 1
+  s[i] <- sum(x_i[start_index:end_index])
+}
+
+par(mfrow = c(1,3))
 hist(n)
-hist(x_i)
+hist(x)
+hist(s)
 
 mean_n <- mean(n)
 var_n <- var(n)
-mean_x_i <- mean(x_i)
-var_x_i <- var(x_i)
+mean_x <- mean(x)
+var_x <- var(x)
 
-mean_s <- mean_n * mean_x_i
-var_s <- mean_n * var_x_i + var_n * mean_x_i^2
-cat("mean of aggregate loss:", mean_s, "\n")
-cat("variance of aggregate loss:", var_s)
+mean_s1 <- mean_n * mean_x
+var_s1 <- mean_n * var_x + var_n * mean_x^2
+mean_s2 <- mean(s)
+var_s2 <- var(s)
+cat("mean of aggregate loss by calculation of N and X:", mean_s1, "\n")
+cat("variance of aggregate loss by calculation of N and X:", var_s1, "\n")
+cat("mean of aggregate loss by S:", mean_s2, "\n")
+cat("variance of aggregate loss by S:", var_s2)
 ```
 $$
 \begin{align*}
@@ -118,23 +147,40 @@ $$
 \end{align*}
 $$
 ```{r Poisson & Lognormal}
+sample_size <- 10000
+lambda <- 100
+mu <- 1
+sigma <- 2
 set.seed(461)
-n <- rpois(10000, 100)
-x_i <- rlnorm(10000, meanlog = 1, sdlog = 2)
 
-par(mfrow = c(1,2))
+n <- rpois(sample_size, lambda)
+x <- rlnorm(sample_size, meanlog = mu, sdlog = sigma)
+s <- numeric(sample_size)
+for (i in 1:sample_size) {
+  x_i <- rlnorm(n[i], meanlog = mu, sdlog = sigma) 
+  start_index <- 1
+  end_index <- start_index + n[i] - 1
+  s[i] <- sum(x_i[start_index:end_index])
+}
+
+par(mfrow = c(1,3))
 hist(n)
-hist(x_i)
+hist(x)
+hist(s)
 
 mean_n <- mean(n)
 var_n <- var(n)
-mean_x_i <- mean(x_i)
-var_x_i <- var(x_i)
+mean_x <- mean(x)
+var_x <- var(x)
 
-mean_s <- mean_n * mean_x_i
-var_s <- mean_n * var_x_i + var_n * mean_x_i^2
-cat("mean of aggregate loss:", mean_s, "\n")
-cat("variance of aggregate loss:", var_s)
+mean_s1 <- mean_n * mean_x
+var_s1 <- mean_n * var_x + var_n * mean_x^2
+mean_s2 <- mean(s)
+var_s2 <- var(s)
+cat("mean of aggregate loss by calculation of N and X:", mean_s1, "\n")
+cat("variance of aggregate loss by calculation of N and X:", var_s1, "\n")
+cat("mean of aggregate loss by S:", mean_s2, "\n")
+cat("variance of aggregate loss by S:", var_s2)
 ```
 $$
 \begin{align*}
@@ -151,23 +197,41 @@ $$
 $$
 
 ```{r Binomial & Gamma}
+sample_size <- 10000
+trial <- 36
+success <- 0.6
+alpha <- 100
+beta <- 2
 set.seed(461)
-n <- rbinom(10000, 36, 0.6)
-x_i <- rgamma(10000, shape = 100, rate = 1/2)
 
-par(mfrow = c(1,2))
+n <- rbinom(sample_size, trial, success)
+x <- rgamma(sample_size, shape = alpha, rate = 1/beta)
+s <- numeric(sample_size)
+for (i in 1:sample_size) {
+  x_i <- rgamma(n[i], shape = alpha, rate = 1/beta) 
+  start_index <- 1
+  end_index <- start_index + n[i] - 1
+  s[i] <- sum(x_i[start_index:end_index])
+}
+
+par(mfrow = c(1,3))
 hist(n)
-hist(x_i)
+hist(x)
+hist(s)
 
 mean_n <- mean(n)
 var_n <- var(n)
-mean_x_i <- mean(x_i)
-var_x_i <- var(x_i)
+mean_x <- mean(x)
+var_x <- var(x)
 
-mean_s <- mean_n * mean_x_i
-var_s <- mean_n * var_x_i + var_n * mean_x_i^2
-cat("mean of aggregate loss:", mean_s, "\n")
-cat("variance of aggregate loss:", var_s)
+mean_s1 <- mean_n * mean_x
+var_s1 <- mean_n * var_x + var_n * mean_x^2
+mean_s2 <- mean(s)
+var_s2 <- var(s)
+cat("mean of aggregate loss by calculation of N and X:", mean_s1, "\n")
+cat("variance of aggregate loss by calculation of N and X:", var_s1, "\n")
+cat("mean of aggregate loss by S:", mean_s2, "\n")
+cat("variance of aggregate loss by S:", var_s2)
 ```
 $$
 \begin{align*}

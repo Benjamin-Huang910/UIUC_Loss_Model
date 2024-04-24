@@ -1,0 +1,667 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Project},
+  pdfauthor={Benjamin Huang},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Project}
+\author{Benjamin Huang}
+\date{2024-03-31}
+
+\begin{document}
+\maketitle
+
+\#Part 1 Convolutions \#\#In this part, you will see the effect of
+adding two distributions together. Simulate 𝑋1, 𝑋2, and then compute
+their sum 𝑌 = 𝑋1 + 𝑋2. Classify Y as an (a, b, 0) distribution and give
+its parameters.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_size }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{beta1 }\OtherTok{\textless{}{-}} \DecValTok{12}
+\NormalTok{beta2 }\OtherTok{\textless{}{-}} \DecValTok{12}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{461}\NormalTok{)}
+\NormalTok{x1 }\OtherTok{\textless{}{-}} \FunctionTok{rgeom}\NormalTok{(sample\_size, }\DecValTok{1}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{beta1))}
+\NormalTok{x2 }\OtherTok{\textless{}{-}} \FunctionTok{rgeom}\NormalTok{(sample\_size, }\DecValTok{1}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\NormalTok{beta2))}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ x1 }\SpecialCharTok{+}\NormalTok{ x2}
+\NormalTok{(table }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(y))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## y
+##   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19 
+##  65 128 146 191 198 224 282 248 277 282 288 294 277 320 304 282 273 280 252 240 
+##  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39 
+## 240 236 238 242 221 223 201 187 174 164 186 175 164 155 124 137 116 113 121 111 
+##  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59 
+##  93  85  96  72  67  65  62  57  59  55  56  48  58  44  32  34  39  34  34  31 
+##  60  61  62  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79 
+##  28  39  22  19  20  17  21  27  15  20  20  21  13  19  18  10  14  16  15   6 
+##  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  97  98  99 100 
+##   9   6   6   5   8   3   5   6   6   6   4  10   5   2   2   4   2   2   1   3 
+## 101 102 105 106 108 109 110 115 119 121 123 124 127 129 132 146 
+##   2   1   2   1   3   2   3   1   1   1   2   1   1   1   2   1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\FunctionTok{hist}\NormalTok{(x1)}
+\FunctionTok{hist}\NormalTok{(x2)}
+\FunctionTok{hist}\NormalTok{(y)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_files/figure-latex/Geometric dist-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(}\DecValTok{60}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{60}\NormalTok{) \{}
+\NormalTok{  p[i] }\OtherTok{\textless{}{-}}\NormalTok{ (i}\SpecialCharTok{+}\DecValTok{1}\NormalTok{)}\SpecialCharTok{*}\NormalTok{table[i}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\NormalTok{table[i]}
+\NormalTok{\}}
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  3.938462  3.421875  5.232877  5.183246  6.787879  8.812500  7.035461
+##  [8] 10.052419 10.180505 11.234043 12.250000 12.248299 16.173285 14.250000
+## [15] 14.842105 16.457447 18.461538 17.100000 19.047619 21.000000 21.633333
+## [22] 23.194915 24.403361 22.830579 26.235294 24.336323 26.049751 26.983957
+## [29] 28.275862 35.158537 30.107527 30.925714 32.134146 28.000000 39.774194
+## [36] 31.328467 37.017241 41.761062 36.694215 34.351351 38.387097 48.564706
+## [43] 33.000000 41.875000 44.626866 44.830769 44.129032 50.719298 46.610169
+## [50] 51.927273 44.571429 64.041667 40.965517 40.000000 59.500000 65.382353
+## [57] 50.564103 59.000000 54.705882 55.096774
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{2}\SpecialCharTok{:}\DecValTok{61}
+\FunctionTok{lm}\NormalTok{(p[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{60}\NormalTok{]}\SpecialCharTok{\textasciitilde{}}\NormalTok{x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = p[1:60] ~ x)
+## 
+## Coefficients:
+## (Intercept)            x  
+##      1.0020       0.9277
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\FunctionTok{hist}\NormalTok{(y, }\AttributeTok{breaks =} \DecValTok{15}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(}\FunctionTok{rnbinom}\NormalTok{(sample\_size, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{+}\DecValTok{12}\NormalTok{)), }\AttributeTok{breaks =} \DecValTok{15}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_files/figure-latex/Geometric dist-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_size }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{trial1 }\OtherTok{\textless{}{-}} \DecValTok{24}
+\NormalTok{trial2 }\OtherTok{\textless{}{-}} \DecValTok{36}
+\NormalTok{success1 }\OtherTok{\textless{}{-}} \FloatTok{0.6}
+\NormalTok{success2 }\OtherTok{\textless{}{-}} \FloatTok{0.6}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{461}\NormalTok{)}
+
+\NormalTok{x1 }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(sample\_size, trial1, success1)}
+\NormalTok{x2 }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(sample\_size, trial2, success2)}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ x1 }\SpecialCharTok{+}\NormalTok{ x2}
+\NormalTok{(table }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(y))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## y
+##   22   23   24   25   26   27   28   29   30   31   32   33   34   35   36   37 
+##    1    8    8   19   47   58  120  206  301  426  593  743  840 1020 1043 1008 
+##   38   39   40   41   42   43   44   45   46   47   48   49   51 
+##  979  780  666  454  276  196  100   48   38   16    3    2    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\FunctionTok{hist}\NormalTok{(x1)}
+\FunctionTok{hist}\NormalTok{(x2)}
+\FunctionTok{hist}\NormalTok{(y)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_files/figure-latex/Binomial dist-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(}\DecValTok{24}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{24}\NormalTok{) \{}
+\NormalTok{  p[i] }\OtherTok{\textless{}{-}}\NormalTok{ (i}\SpecialCharTok{+}\DecValTok{22}\NormalTok{)}\SpecialCharTok{*}\NormalTok{table[i}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\NormalTok{table[i]}
+\NormalTok{\}}
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 184.00000  24.00000  59.37500  64.31579  33.31915  57.93103  49.78333
+##  [8]  43.83495  43.87375  44.54460  41.34739  38.43876  42.50000  36.81176
+## [15]  35.75839  36.90675  31.07252  34.15385  27.94895  25.53304  30.53623
+## [22]  22.44898  21.60000  36.41667
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{26}\SpecialCharTok{:}\DecValTok{46}
+\FunctionTok{lm}\NormalTok{(p[}\DecValTok{4}\SpecialCharTok{:}\DecValTok{24}\NormalTok{]}\SpecialCharTok{\textasciitilde{}}\NormalTok{x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = p[4:24] ~ x)
+## 
+## Coefficients:
+## (Intercept)            x  
+##      88.296       -1.396
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\FunctionTok{hist}\NormalTok{(y, }\AttributeTok{breaks =} \DecValTok{15}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(}\FunctionTok{rbinom}\NormalTok{(sample\_size, }\DecValTok{62}\NormalTok{, }\FloatTok{0.583}\NormalTok{), }\AttributeTok{breaks =} \DecValTok{15}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_files/figure-latex/Binomial dist-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_size }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{lambda1 }\OtherTok{\textless{}{-}} \DecValTok{16}
+\NormalTok{lambda2 }\OtherTok{\textless{}{-}} \DecValTok{20}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{461}\NormalTok{)}
+
+\NormalTok{x1 }\OtherTok{\textless{}{-}} \FunctionTok{rpois}\NormalTok{(sample\_size, lambda1)}
+\NormalTok{x2 }\OtherTok{\textless{}{-}} \FunctionTok{rpois}\NormalTok{(sample\_size, lambda2)}
+\NormalTok{y }\OtherTok{\textless{}{-}}\NormalTok{ x1 }\SpecialCharTok{+}\NormalTok{ x2}
+\NormalTok{(table }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(y))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## y
+##  14  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35 
+##   2   1   6   7  12  23  40  56  82 120 176 232 279 360 448 503 572 627 669 663 
+##  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54  55 
+## 672 623 554 551 512 462 365 338 246 206 163 122  82  63  54  29  29  16  14  10 
+##  56  57  58  59  60  62 
+##   5   2   1   1   1   1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{))}
+\FunctionTok{hist}\NormalTok{(x1)}
+\FunctionTok{hist}\NormalTok{(x2)}
+\FunctionTok{hist}\NormalTok{(y)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_files/figure-latex/Poisson dist-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(}\DecValTok{40}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{40}\NormalTok{) \{}
+\NormalTok{  p[i] }\OtherTok{\textless{}{-}}\NormalTok{ (i}\SpecialCharTok{+}\DecValTok{17}\NormalTok{)}\SpecialCharTok{*}\NormalTok{table[i}\SpecialCharTok{+}\DecValTok{2}\NormalTok{]}\SpecialCharTok{/}\NormalTok{table[i}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]}
+\NormalTok{\}}
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 108.00000  22.16667  34.28571  40.25000  38.26087  32.20000  35.14286
+##  [8]  36.58537  38.13333  35.59091  33.67241  37.41935  37.33333  34.80580
+## [15]  36.38966  36.17308  36.27751  34.68610  36.48869  34.30208  33.79133
+## [22]  38.78881  37.16878  36.99609  33.18182  39.81918  32.02367  37.68293
+## [29]  36.39806  35.17791  32.26230  37.64634  42.85714  27.38889  52.00000
+## [36]  29.24138  47.25000  39.28571  28.00000  22.80000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{21}\SpecialCharTok{:}\DecValTok{52}
+\FunctionTok{lm}\NormalTok{(p[}\DecValTok{4}\SpecialCharTok{:}\DecValTok{35}\NormalTok{]}\SpecialCharTok{\textasciitilde{}}\NormalTok{x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = p[4:35] ~ x)
+## 
+## Coefficients:
+## (Intercept)            x  
+##    34.62612      0.05039
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\FunctionTok{hist}\NormalTok{(y, }\AttributeTok{breaks =} \DecValTok{15}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(}\FunctionTok{rpois}\NormalTok{(sample\_size, }\DecValTok{35}\NormalTok{), }\AttributeTok{breaks =} \DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Project_files/figure-latex/Poisson dist-2.pdf}
+
+\#Part 2 Compound Distributions \#\#In this part, you will create a
+collective risk model with N being the number of claims and 𝑋𝑖 being the
+amount of loss. Simulate 𝑁, 𝑋𝑖, and the sum 𝑆 = 𝑋1 + 𝑋2 + ⋯ + 𝑋𝑁.
+Compute 𝐸{[}𝑆{]}, 𝑉𝑎𝑟{[}𝑆{]}, and compare to the theoretical values
+using the law of total expectation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_size }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{lambda }\OtherTok{\textless{}{-}} \DecValTok{25}
+\NormalTok{theta }\OtherTok{\textless{}{-}} \DecValTok{100}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{441}\NormalTok{)}
+
+\NormalTok{n1 }\OtherTok{\textless{}{-}} \FunctionTok{rpois}\NormalTok{(sample\_size, lambda)}
+\NormalTok{s1 }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(sample\_size)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{sample\_size) \{}
+\NormalTok{  x\_i }\OtherTok{\textless{}{-}} \FunctionTok{rexp}\NormalTok{(n1[i], }\DecValTok{1}\SpecialCharTok{/}\NormalTok{theta) }
+\NormalTok{  s1[i] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(x\_i)}
+\NormalTok{\}}
+
+\NormalTok{mean\_s1 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(s1)}
+\NormalTok{var\_s1 }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(s1)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"mean of aggregate loss by S1:"}\NormalTok{, mean\_s1, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## mean of aggregate loss by S1: 2489.794
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"variance of aggregate loss by S1:"}\NormalTok{, var\_s1, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## variance of aggregate loss by S1: 492648.3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_size }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{lambda }\OtherTok{\textless{}{-}} \DecValTok{25}
+\NormalTok{theta }\OtherTok{\textless{}{-}} \DecValTok{100}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{441}\NormalTok{)}
+
+\NormalTok{s2 }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(sample\_size)}
+\ControlFlowTok{for}\NormalTok{(k }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{sample\_size)\{}
+\NormalTok{  n2 }\OtherTok{\textless{}{-}} \FunctionTok{rpois}\NormalTok{(}\DecValTok{1}\NormalTok{, lambda)}
+\NormalTok{  x2 }\OtherTok{\textless{}{-}} \FunctionTok{rexp}\NormalTok{(n2, }\DecValTok{1}\SpecialCharTok{/}\NormalTok{theta)}
+\NormalTok{  s2[k] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(x2)}
+\NormalTok{\}}
+
+\NormalTok{mean\_s2 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(s2)}
+\NormalTok{var\_s2 }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(s2)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"mean of aggregate loss by S2:"}\NormalTok{, mean\_s2, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## mean of aggregate loss by S2: 2495.228
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"variance of aggregate loss by S2:"}\NormalTok{, var\_s2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## variance of aggregate loss by S2: 495309.7
+\end{verbatim}
+
+\$\$ \begin{align*}
+
+& N \sim Poi(\lambda = 25), \: X \sim Exp(\theta = 100)
+\\
+& E(N) = \lambda = 25, \: Var(N) = \lambda = 25
+\\
+& E(X) = \theta^{1} \times 1! = 100, \: E(X^{2}) = \theta^{2} \times 2! = 20000, \: Var(X) = 10000
+\\
+& \therefore E(S) = E(N) \times E(X) = 2500, \: Var(S) = E(N) \times Var(X) + Var(N) \times E(X)^{2} = 500000
+
+\end{align*} \$\$
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_size }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{lambda }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{mu }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{sigma }\OtherTok{\textless{}{-}} \DecValTok{2}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{441}\NormalTok{)}
+
+\NormalTok{n1 }\OtherTok{\textless{}{-}} \FunctionTok{rpois}\NormalTok{(sample\_size, lambda)}
+\NormalTok{s1 }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(sample\_size)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{sample\_size) \{}
+\NormalTok{  x\_i }\OtherTok{\textless{}{-}} \FunctionTok{rlnorm}\NormalTok{(n1[i], }\AttributeTok{meanlog =}\NormalTok{ mu, }\AttributeTok{sdlog =}\NormalTok{ sigma) }
+\NormalTok{  s1[i] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(x\_i)}
+\NormalTok{\}}
+
+
+\NormalTok{mean\_s1 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(s1)}
+\NormalTok{var\_s1 }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(s1)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"mean of aggregate loss by S1:"}\NormalTok{, mean\_s1, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## mean of aggregate loss by S1: 2025.958
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"variance of aggregate loss by S1:"}\NormalTok{, var\_s1, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## variance of aggregate loss by S1: 1887151
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_size }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{lambda }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{mu }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{sigma }\OtherTok{\textless{}{-}} \DecValTok{2}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{441}\NormalTok{)}
+
+\NormalTok{s2 }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(sample\_size)}
+\ControlFlowTok{for}\NormalTok{ (k }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{sample\_size) \{}
+\NormalTok{  n2 }\OtherTok{\textless{}{-}} \FunctionTok{rpois}\NormalTok{(}\DecValTok{1}\NormalTok{, lambda)}
+\NormalTok{  x2 }\OtherTok{\textless{}{-}} \FunctionTok{rlnorm}\NormalTok{(n2, mu, sigma)}
+\NormalTok{  s2[k] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(x2)}
+\NormalTok{\}}
+
+\NormalTok{mean\_s2 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(s2)}
+\NormalTok{var\_s2 }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(s2)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"mean of aggregate loss by S2:"}\NormalTok{, mean\_s2, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## mean of aggregate loss by S2: 1997.262
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"variance of aggregate loss by S2:"}\NormalTok{, var\_s2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## variance of aggregate loss by S2: 1716529
+\end{verbatim}
+
+\$\$ \begin{align*}
+
+& N \sim Poi(\lambda = 100), \: X \sim Lognormal(\mu = 1, \sigma = 2)
+\\
+& E(N) = \lambda = 100, \: Var(N) = \lambda = 100
+\\
+& E(X) = exp(\mu + \frac{1}{2}\sigma^{2}) \approx 20.09, \: E(X^{2}) = exp(2\mu + 2\sigma^{2}) \approx 22026.47, \: Var(X) \approx 21622.86
+\\
+& \therefore E(S) = E(N) \times E(X) = 2009, \: Var(S) = E(N) \times Var(X) + Var(N) \times E(X)^{2} = 2202646.81
+
+\end{align*} \$\$
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_size }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{trial }\OtherTok{\textless{}{-}} \DecValTok{36}
+\NormalTok{success }\OtherTok{\textless{}{-}} \FloatTok{0.6}
+\NormalTok{alpha }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{beta }\OtherTok{\textless{}{-}} \DecValTok{2}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{441}\NormalTok{)}
+
+\NormalTok{n1 }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(sample\_size, trial, success)}
+\NormalTok{s1 }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(sample\_size)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{sample\_size) \{}
+\NormalTok{  x\_i }\OtherTok{\textless{}{-}} \FunctionTok{rgamma}\NormalTok{(n1[i], }\AttributeTok{shape =}\NormalTok{ alpha, }\AttributeTok{rate =} \DecValTok{1}\SpecialCharTok{/}\NormalTok{beta) }
+\NormalTok{  s1[i] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(x\_i)}
+\NormalTok{\}}
+
+\NormalTok{mean\_s1 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(s1)}
+\NormalTok{var\_s1 }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(s1)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"mean of aggregate loss by S1:"}\NormalTok{, mean\_s1, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## mean of aggregate loss by S1: 4326.69
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"variance of aggregate loss by S1:"}\NormalTok{, var\_s1, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## variance of aggregate loss by S1: 357415.6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample\_size }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{trial }\OtherTok{\textless{}{-}} \DecValTok{36}
+\NormalTok{success }\OtherTok{\textless{}{-}} \FloatTok{0.6}
+\NormalTok{alpha }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{beta }\OtherTok{\textless{}{-}} \DecValTok{2}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{441}\NormalTok{)}
+
+\NormalTok{s2 }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(sample\_size)}
+\ControlFlowTok{for}\NormalTok{ (k }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{sample\_size) \{}
+\NormalTok{  n2 }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, trial, success)}
+\NormalTok{  x2 }\OtherTok{\textless{}{-}} \FunctionTok{rgamma}\NormalTok{(n2, }\AttributeTok{shape =}\NormalTok{ alpha, }\AttributeTok{rate =} \DecValTok{1}\SpecialCharTok{/}\NormalTok{beta)}
+\NormalTok{  s2[k] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(x2)}
+\NormalTok{\}}
+
+\NormalTok{mean\_s2 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(s2)}
+\NormalTok{var\_s2 }\OtherTok{\textless{}{-}} \FunctionTok{var}\NormalTok{(s2)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"mean of aggregate loss by S2:"}\NormalTok{, mean\_s2, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## mean of aggregate loss by S2: 4322.938
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"variance of aggregate loss by S2:"}\NormalTok{, var\_s2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## variance of aggregate loss by S2: 358285.6
+\end{verbatim}
+
+\$\$ \begin{align*}
+
+& N \sim Bin(m = 36, q = 0.6), \: X \sim Gamma(\alpha = 100, \theta = 2)
+\\
+& E(N) = mq = 21.6, \: Var(N) = mq(1-q) = 8.64
+\\
+& E(X) = \theta^{1}(\alpha + 1 - 1) = 200, \: E(X^{2}) = \theta^{2}(\alpha + 2 - 1)(\alpha + 1 -1) = 40400, \: Var(X) = 400
+\\
+& \therefore E(S) = E(N) \times E(X) = 4320, \: Var(S) = E(N) \times Var(X) + Var(N) \times E(X)^{2} = 354240
+
+\end{align*} \$\$
+
+\#Part 3 Credibility Theory \#For each of the three models in Part 2,
+determine the credibility standards with \$\$ \begin{align*}
+
+& For \: r = 0.01, p = 0.9, \: E(S) = 2500, \: Var(S) = 500000
+\\
+& \mathbb{P}\{ -r\xi \leq \bar{X} - \xi \leq r\xi \} \geq p, \: \mathbb{P}(|\frac{\bar{X}-\xi}{\sigma/\sqrt{n}}| \leq \frac{r\xi\sqrt{n}}{\sigma}) \geq p
+\\
+& \Rightarrow \mathbb{P}(|\frac{\bar{X}-E(X)}{\sqrt{Var(\bar{X})}}| \leq \frac{rE(X)}{\sqrt{Var(\bar{X})}}=y_{p}) \geq p
+\\
+& Let \: X = S(Aggregate \: Loss)
+\\
+& \Rightarrow \frac{rE(X)}{\sqrt{Var(\bar{X})}} = \frac{0.01 \times 2500}{\sqrt{500000/10000}} \approx 3.536 \geq y_{0.95} = 1.645
+
+\end{align*} \$\$
+
+\$\$ \begin{align*}
+
+& For \: r = 0.05, p = 0.95, \: E(S) = 2009, \: Var(S) = 2202646.81
+\\
+& \mathbb{P}\{ -r\xi \leq \bar{X} - \xi \leq r\xi \} \geq p, \: \mathbb{P}(|\frac{\bar{X}-\xi}{\sigma/\sqrt{n}}| \leq \frac{r\xi\sqrt{n}}{\sigma}) \geq p
+\\
+& \Rightarrow \mathbb{P}(|\frac{\bar{X}-E(X)}{\sqrt{Var(\bar{X})}}| \leq \frac{rE(X)}{\sqrt{Var(\bar{X})}}=y_{p}) \geq p
+\\
+& Let \: X = S(Aggregate \: Loss)
+\\
+& \Rightarrow \frac{rE(X)}{\sqrt{Var(\bar{X})}} = \frac{0.05 \times 2009}{\sqrt{2202646.81/10000}} \approx 6.768 \geq y_{0.975} = 1.96
+
+\end{align*} \$\$
+
+\$\$ \begin{align*}
+
+& For \: r = 0.10, p = 0.99, \: E(S) = 4320, \: Var(S) = 354240
+\\
+& \mathbb{P}\{ -r\xi \leq \bar{X} - \xi \leq r\xi \} \geq p, \: \mathbb{P}(|\frac{\bar{X}-\xi}{\sigma/\sqrt{n}}| \leq \frac{r\xi\sqrt{n}}{\sigma}) \geq p
+\\
+& \Rightarrow \mathbb{P}(|\frac{\bar{X}-E(X)}{\sqrt{Var(\bar{X})}}| \leq \frac{rE(X)}{\sqrt{Var(\bar{X})}}=y_{p}) \geq p
+\\
+& Let \: X = S(Aggregate \: Loss)
+\\
+& \Rightarrow \frac{rE(X)}{\sqrt{Var(\bar{X})}} = \frac{0.1 \times 4320}{\sqrt{354240/10000}} \approx 72.583 \geq y_{0.995} = 2.575
+
+\end{align*} \$\$
+
+\end{document}

@@ -1,0 +1,152 @@
+---
+title: "ASRM461 Project"
+author: "Sueking Liang"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r }
+#Part 1 Convolutions
+#a.	X_1=Geo(β=12),X_2=Geo(β=12)
+set.seed(123)
+n <- 10000
+#Simulate X1 and X2 from geometric distributions with β = 12.
+X1 <- rgeom(n, prob = 1/12)
+X2 <- rgeom(n, prob = 1/12)
+#Sum Y = X1 + X2
+Y <- X1 + X2
+#Parameters for the (a, b, 0) distribution
+a <- mean(Y) / var(Y)
+b <- var(Y) / mean(Y)
+zero_prob <- sum(Y == 0) / n
+cat("a =", a, "\n")
+cat("b =", b, "\n")
+cat("Zero Probability =", zero_prob, "\n")
+
+#b.	X_1=Bin(m=24,q=0.6),X_2=Bin(m=36,q=0.6)
+set.seed(123)
+n <- 10000
+#Parameters for X1 and X2
+m1 <- 24
+q1 <- 0.6
+m2 <- 36
+q2 <- 0.6
+#Simulate X1 and X2 from binomial distributions
+X1 <- rbinom(n, size = m1, prob = q1)
+X2 <- rbinom(n, size = m2, prob = q2)
+#Sum Y = X1 + X2
+Y <- X1 + X2
+#Parameters for the (a, b, 0) distribution
+a <- mean(Y) / var(Y)
+b <- var(Y) / mean(Y)
+zero_prob <- sum(Y == 0) / n
+cat("a =", a, "\n")
+cat("b =", b, "\n")
+cat("Zero Probability =", zero_prob, "\n")
+
+#c. X_1=Poi(λ=16),X_2=Poi(λ=20)
+set.seed(123)
+n <- 10000
+#Parameters for X1 and X2
+lambda1 <- 16
+lambda2 <- 20
+#Simulate X1 and X2 from Poisson distributions
+X1 <- rpois(n, lambda = lambda1)
+X2 <- rpois(n, lambda = lambda2)
+#Sum Y = X1 + X2
+Y <- X1 + X2
+#Parameters for the (a, b, 0) distribution
+a <- mean(Y) / var(Y)
+b <- var(Y) / mean(Y)
+zero_prob <- sum(Y == 0) / n
+cat("a =", a, "\n")
+cat("b =", b, "\n")
+cat("Zero Probability =", zero_prob, "\n")
+```
+
+
+
+```{r }
+#Part 2 Compound Distributions
+#a. N=Poi(λ=25),X_i=Exp(θ=100)
+#Parameters
+lambda <- 25
+theta <- 100
+#Simulate N from a Poisson distribution, and individual losses X_i from an exponential distribution.
+set.seed(441)
+t <- 10000
+#Sum S = X_1 + X_2 + ... + X_N
+S <- numeric(t)
+for (k in 1:t) {
+  n <- rpois(1, lambda = 25)
+  x <- rexp(n, 1/100)
+  S[k] <- sum(x)}
+
+#Empirical Mean and variance of S
+mean_S <- mean(S)
+var_S <- var(S)
+#Theoretical values
+mean_theoretical <- lambda * theta
+var_theoretical <- lambda * theta^2
+#Outputs
+cat("Empirical Mean of S:", mean_S, "\n")
+cat("Empirical Variance of S:", var_S, "\n")
+cat("Theoretical Mean of S:", mean_theoretical, "\n")
+cat("Theoretical Variance of S:", var_theoretical, "\n")
+
+#b. N=Poi(λ=100),X_i=LogNormal(μ=1,σ=2)
+set.seed(441)
+t <- 10000
+lambda <- 100
+mu <- 1
+sigma <- 2
+#Simulate N from a Poisson distribution, and individual losses X_i from a Log-Normal distribution.
+for (k in 1:t) {
+  n <- rpois(1, lambda = 100)
+  x <- rlnorm(n, meanlog = 1, sdlog = 2)
+  S[k] <- sum(x)}
+#Mean and variance of S
+mean_S <- mean(S)
+var_S <- var(S)
+#Theoretical values
+mean_theoretical <- lambda * exp(mu + sigma^2 / 2)
+var_theoretical <- (lambda * (exp(sigma^2) - 1) * exp(2 * mu + sigma^2)) + (lambda * exp(mu + sigma^2 / 2))^2
+#Outputs
+cat("Empirical Mean of S:", mean_S, "\n")
+cat("Empirical Variance of S:", var_S, "\n")
+cat("Theoretical Mean of S:", mean_theoretical, "\n")
+cat("Theoretical Variance of S:", var_theoretical, "\n")
+
+#c.	N=Bin(m=36,q=0.6),X_i=Gamma(α=100,θ=2)
+set.seed(441)
+t <- 10000
+m <- 36
+q <- 0.6
+alpha <- 100
+theta <- 2
+#Simulate N from a binomial distribution, and individual losses X_i from a Gamma distribution.
+S <- numeric(t)
+for (k in 1:t) {
+  n <- rbinom(1, m, q)
+  X <- rgamma(n, shape = alpha, rate = 1/theta)
+  S[k] <- sum(X)}
+#Mean and variance of S
+mean_S <- mean(S)
+var_S <- var(S)
+#Theoretical values
+mean_theoretical <- m * alpha / theta
+var_theoretical <- m * alpha / theta^2
+#Outputs
+cat("Empirical Mean of S:", mean_S, "\n")
+cat("Empirical Variance of S:", var_S, "\n")
+cat("Theoretical Mean of S:", mean_theoretical, "\n")
+cat("Theoretical Variance of S:", var_theoretical, "\n")
+```
+
+
+
+```{r }
+
+```
+
+
